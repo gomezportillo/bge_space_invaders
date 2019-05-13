@@ -1,5 +1,7 @@
 import bge
 
+POINTS_TO_BOSS = 10
+
 def menu(controller):
 	scene = bge.logic.getCurrentScene()
 
@@ -40,6 +42,13 @@ def add_points(controller):
 		current_points = int(text_points['Text'])
 		current_points += points_to_add
 		text_points['Text'] = current_points
+
+		if current_points % POINTS_TO_BOSS == 0:
+
+			scene = bge.logic.getCurrentScene()
+			scene.addObject("Boss", "Boss_spawner")
+
+			bge.logic.globalDict['Boss_phase'] = True
 
 
 def load_points(controller):
