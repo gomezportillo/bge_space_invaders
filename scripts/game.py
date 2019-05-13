@@ -1,6 +1,8 @@
 import bge
 
-POINTS_TO_BOSS = 10
+from . import boss
+
+POINTS_TO_BOSS = 300
 
 def menu(controller):
 	scene = bge.logic.getCurrentScene()
@@ -13,14 +15,14 @@ def menu(controller):
 
 	spaceship = controller.owner
 	start_y_position = 0
-	exit_y_position  = -2
+	exit_y_position  = -3
 
 	if down.positive and spaceship.worldPosition.y == start_y_position:
-		spaceship.worldPosition.y -= 2
+		spaceship.worldPosition.y -= 3
 		controller.activate(sound)
 
 	if up.positive and spaceship.worldPosition.y == exit_y_position:
-		spaceship.worldPosition.y += 2
+		spaceship.worldPosition.y += 3
 		controller.activate(sound)
 
 	if select.positive:
@@ -44,11 +46,8 @@ def add_points(controller):
 		text_points['Text'] = current_points
 
 		if current_points % POINTS_TO_BOSS == 0:
-
 			scene = bge.logic.getCurrentScene()
-			scene.addObject("Boss", "Boss_spawner")
-
-			bge.logic.globalDict['Boss_phase'] = True
+			boss.spawn(scene)
 
 
 def load_points(controller):
@@ -64,3 +63,7 @@ def restart(controller):
 
 def exit(controller):
     bge.logic.endGame()
+
+
+def load_menu(controller):
+	bge.logic.getCurrentScene().replace('Menu')
