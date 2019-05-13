@@ -74,11 +74,18 @@ def reduce_life(controller):
         lost_life = float(message.bodies[0]) # betweeen 0 and 1
 
         x_scale = float(health_bar.localScale.x) # between 0 and 1
-        print(x_scale)
         new_x_scale = x_scale - lost_life
 
         if new_x_scale > 0:
             health_bar.localScale.x = new_x_scale
         else:
             health_bar.localScale.x = 0
+
             # game over
+            scene  = bge.logic.getCurrentScene()
+
+            object_list = scene.objects
+            text_points = object_list['Text_points']
+            bge.logic.globalDict['Points'] = text_points['Text']
+
+            scene.replace('GameOver')

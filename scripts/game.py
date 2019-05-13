@@ -40,3 +40,18 @@ def add_points(controller):
 		current_points = int(text_points['Text'])
 		current_points += points_to_add
 		text_points['Text'] = current_points
+
+
+def load_points(controller):
+	text_points = controller.owner
+
+	if 'Points' in bge.logic.globalDict:
+		text_points['Text'] = bge.logic.globalDict['Points'] + ' POINTS'
+
+
+def restart(controller):
+	bge.logic.getCurrentScene().replace('Game')
+
+
+def exit(controller):
+    bge.logic.endGame()

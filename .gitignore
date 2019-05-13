@@ -103,5 +103,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+tmp/
+
 # blender
 *.blend1
+
+# odt
+*.odt#
