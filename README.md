@@ -1,2 +1,1 @@
-# bge_space_invaders
-Spaceships game made with the Blender Game Engine
+# Spaceships game made with the Blender Game Engine 
