@@ -2,6 +2,8 @@ import bge
 
 from . import boss
 
+bge.logic.globalDict['Music'] = True
+
 POINTS_TO_BOSS = 300
 
 def menu(controller):
@@ -37,6 +39,7 @@ def add_points(controller):
 	text_points = controller.owner
 
 	message = controller.sensors["Points_message"]
+	bge.logic.getCurrentController().actuators['Explosion_sound'].startSound()
 
 	if len(message.bodies) > 0:
 		points_to_add = int(message.bodies[0])
@@ -67,3 +70,21 @@ def exit(controller):
 
 def load_menu(controller):
 	bge.logic.getCurrentScene().replace('Menu')
+
+
+def play_music(controller):
+	if bge.logic.globalDict['Music'] == True:
+		music = bge.logic.getCurrentController().actuators['Music']
+		music.startSound()
+
+
+def toggle_music(controller):
+	music = bge.logic.getCurrentController().actuators['Music']
+
+	bge.logic.globalDict['Music'] = not bge.logic.globalDict['Music']
+
+	if bge.logic.globalDict['Music']:
+		music.startSound()
+
+	else:
+		music.stopSound()

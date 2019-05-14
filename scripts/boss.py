@@ -1,7 +1,7 @@
 import bge
 
 MOVEMENT_STEP = 0.025
-bge.logic.globalDict['Boss_direction'] = 'DOWN'
+bge.logic.globalDict['Boss_direction'] = 'SPAWNING'
 
 def spawn(scene):
 
@@ -14,9 +14,16 @@ def spawn(scene):
 
         bge.logic.globalDict['Boss_phase'] = True
 
+        bge.logic.globalDict['Boss_direction'] = 'SPAWNING'
+
 
 def move(controller):
     boss = controller.owner
+
+    if bge.logic.globalDict['Boss_direction'] == 'SPAWNING':
+        bge.logic.getCurrentController().actuators['Spawn_boss_sound'].startSound()
+        bge.logic.globalDict['Boss_direction'] = 'DOWN'
+
 
     if bge.logic.globalDict['Boss_direction'] == 'DOWN':
         if boss.worldPosition.z > -2.2:
@@ -66,3 +73,5 @@ def destroy(controller):
     bge.logic.globalDict['Boss_phase'] = False
 
     bge.logic.sendMessage("enemy_destroyed", '50')
+
+    bge.logic.getCurrentController().actuators['Kill_boss_sound'].startSound()
